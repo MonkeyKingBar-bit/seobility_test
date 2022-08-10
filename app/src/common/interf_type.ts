@@ -16,7 +16,15 @@ export interface FormProps {
     messageError: string;
     message: string;
     nameHandler: (e: any) => void;
-    blurHandler: (e: any) => void;
     emailHandler: (e: any) => void;
     phoneHandler: (e: any) => void;
+    birthHandler: (e: any) => void;
+    messageHandler: (e: any) => void;
+    blurHandler: (e: any) => void;
+    setIsFormValid: (e: boolean) => void;
+    setFullName: (e: string) => void;
+    setEmail: (e: string) => void;
+    setPhone: (e: string) => void;
+    setBirth: (e: string) => void;
+    setMessage: (e: string) => void;
 }
