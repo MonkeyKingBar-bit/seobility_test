@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import axios from 'axios';
 import { FormProps } from '../common/interf_type';
 import styles from '../App.module.scss';
@@ -8,39 +8,34 @@ const FormPresent: FC<FormProps> = (props: FormProps) => {
     isNameDirty, isEmailDirty, emailError, nameError, nameHandler, fullName, blurHandler,
     emailHandler, email, isPhoneDirty, phoneError, phoneHandler, phone, isBirthDirty, birthError,
     birth, isMessageDirty, messageError, message, isFormValid, birthHandler, messageHandler,
-    setIsFormValid, setFullName, setEmail, setPhone, setBirth, setMessage,
+    setIsFormValid, setFullName, setEmail, setPhone, setBirth, setMessage, setFetchMessage,
+    fetchMessage,
   } = props;
-
-  const [fetchMessage, setFetchMessage] = useState<string>('');
 
   const handleSubmit = (e: any) => {
     setIsFormValid(false);
     e.preventDefault();
-    axios.post('https://jsonplaceholder.typicode.com/users', {
+    axios.post('https://jsonplaceholder.typicode.com/todos', {
       fullName, email, phone, birth, message,
     })
-      .then((res) => {
+      .then(() => {
+        setFetchMessage(String('Form submitted successfully!'));
         setFullName('');
         setEmail('');
         setPhone('');
         setBirth('');
         setMessage('');
         setIsFormValid(true);
-        console.log(res);
-        setFetchMessage(res.statusText);
       })
       .catch((error) => {
         setIsFormValid(true);
-        console.log(error.message);
-
         setFetchMessage(error.message);
       });
-    console.log(fullName, email, phone, birth, message);
   };
 
   return (
     <div>
-      <h1>Feedback</h1>
+      <h1 className={styles.title}>Feedback</h1>
       <form onSubmit={handleSubmit} className={styles.contactUs}>
         <label htmlFor="customerName">
           NAME
@@ -54,9 +49,10 @@ const FormPresent: FC<FormProps> = (props: FormProps) => {
           name="fullName"
           type="text"
           placeholder="first and last name"
+          className={styles.fullName}
           required
         />
-        {(isNameDirty && nameError) && <div style={{ color: 'red' }}>{nameError}</div>}
+        {(isNameDirty && nameError) && <div className={styles.error}>{nameError}</div>}
 
         <label htmlFor="customerEmail">
           EMAIL
@@ -72,7 +68,7 @@ const FormPresent: FC<FormProps> = (props: FormProps) => {
           placeholder="E-mail"
           required
         />
-        {(isEmailDirty && emailError) && <div style={{ color: 'red' }}>{emailError}</div>}
+        {(isEmailDirty && emailError) && <div className={styles.error}>{emailError}</div>}
 
         <label htmlFor="customerPhone">
           PHONE
@@ -87,10 +83,10 @@ const FormPresent: FC<FormProps> = (props: FormProps) => {
           type="text"
           placeholder="+7(___)___-__-__"
         />
-        {(isPhoneDirty && phoneError) && <div style={{ color: 'red' }}>{phoneError}</div>}
+        {(isPhoneDirty && phoneError) && <div className={styles.error}>{phoneError}</div>}
 
         <label htmlFor="customerBirth">
-          Birthday
+          BIRTHDAY
           <em>&#x2a;</em>
         </label>
         <input
@@ -102,7 +98,7 @@ const FormPresent: FC<FormProps> = (props: FormProps) => {
           type="date"
           placeholder="Birthday"
         />
-        {(isBirthDirty && birthError) && <div style={{ color: 'red' }}>{birthError}</div>}
+        {(isBirthDirty && birthError) && <div className={styles.error}>{birthError}</div>}
 
         <label htmlFor="customerMessage">
           YOUR MESSAGE
@@ -116,10 +112,9 @@ const FormPresent: FC<FormProps> = (props: FormProps) => {
           name="message"
           placeholder="Write here"
         />
-        {(isMessageDirty && messageError) && <div style={{ color: 'red' }}>{messageError}</div>}
+        {(isMessageDirty && messageError) && <div className={styles.error}>{messageError}</div>}
 
-        <label htmlFor="customerLAbel" className={styles.fetchMessage}>{fetchMessage}</label>
-
+        <h3>{fetchMessage}</h3>
         <button disabled={!isFormValid} type="submit">Submit</button>
       </form>
     </div>

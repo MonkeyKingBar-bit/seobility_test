@@ -1,3 +1,4 @@
+/* eslint-disable */
 export interface FormProps {
     isNameDirty: boolean;
     isEmailDirty: boolean;
@@ -27,4 +28,7 @@ export interface FormProps {
     setPhone: (e: string) => void;
     setBirth: (e: string) => void;
     setMessage: (e: string) => void;
+    fetchMessage: string;
+    setFetchMessage: (fetchMessage: string) => void;
 }
+/* eslint-enable */

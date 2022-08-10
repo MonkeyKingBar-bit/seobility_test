@@ -7,6 +7,7 @@ export const Form: FC = () => {
   const [phone, setPhone] = useState<string>('');
   const [birth, setBirth] = useState<string>('');
   const [message, setMessage] = useState<string>('');
+  const [fetchMessage, setFetchMessage] = useState<string>('');
 
   const [nameError, setNameError] = useState<string>('Name can\'t be empty');
   const [emailError, setEmailError] = useState<string>('Email can\'t be empty');
@@ -25,7 +26,7 @@ export const Form: FC = () => {
     if (nameError || emailError || phoneError || birthError || messageError) {
       setIsFormValid(false);
     } else setIsFormValid(true);
-  }, [nameError, emailError, phoneError, birthError, messageError]);
+  }, [nameError, emailError, phoneError, birthError, messageError, fetchMessage]);
 
   const nameHandler = (e: any) => {
     setFullName(e.target.value);
@@ -127,6 +128,8 @@ export const Form: FC = () => {
       setBirth={setBirth}
       setPhone={setPhone}
       setEmail={setEmail}
+      setFetchMessage={setFetchMessage}
+      fetchMessage={fetchMessage}
     />
   );
 };

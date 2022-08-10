@@ -45,6 +45,7 @@ input {
 }
 
 h3 {
+  text-align: center;
   font-weight: normal;
   font-size: 10pt;
   line-height: $font-size * 2;
@@ -73,6 +74,10 @@ input:focus, textarea:focus {
   border: 1px solid $form-focus;
 }
 
+input::placeholder {
+  text-transform: lowercase;
+}
+
 textarea {
   resize: none;
 }
@@ -97,8 +102,12 @@ button {
     border-bottom: 2px solid $form-border;
   }
   &:disabled {
-    color: grey;
+    background-color: grey;
     cursor: default;
+    &:hover {
+      color: #fff;
+      border: none;
+    }
   }
 }
 
@@ -114,11 +123,25 @@ textarea:-webkit-autofill:hover,
 textarea:-webkit-autofill:focus {
   border: 1px solid $form-focus;
   -webkit-text-fill-color: $font-color;
-  -webkit-box-shadow: 0 0 0px 1000px $form-bg inset;
+  -webkit-box-shadow: 0 0 0 1000px $form-bg inset;
   transition: background-color 5000s ease-in-out 0s;
 }
 
 .fetchMessage {
   font-size: 36px;
   color: green;
+}
+
+.title {
+  margin-bottom: 35px;
+  text-align: center;
+}
+
+.fullName {
+  text-transform: uppercase;
+}
+
+.error {
+  color: red;
+  margin: -28px 0 16px 0;
 }
